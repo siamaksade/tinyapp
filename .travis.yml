@@ -1,0 +1,16 @@
+services:
+  - docker
+
+language: java
+
+jdk:
+  - oraclejdk8
+
+before_install:
+  - docker login -u $QUAY_USER -p $QUAY_PASS quay.io
+
+script:
+  - mvn install
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -t quay.io/siamaksade/tinyapp:$TAG .
+  - docker push quay.io/siamaksade/tinyapp:$TAG
