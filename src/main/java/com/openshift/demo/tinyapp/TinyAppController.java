@@ -12,7 +12,7 @@ public class TinyAppController {
   public static final String ANSI_RESET = "\u001B[0m";
   public static final String[] ANSI_COLORS = {"\u001b[35m", "\u001B[31m", "\u001B[32m", "\u001B[33m", "\u001B[36m"};
 
-  private static final String TEMPLATE = "[ %tT ] TinyApp pod=%s status=OK version=%s\n";
+  private static final String TEMPLATE = "TinyApp pod=%s status=OK version=%s\n";
 
   @Value("${pod.name}")
   private String podName;
@@ -23,7 +23,7 @@ public class TinyAppController {
   @RequestMapping("/version")
   public String status(@RequestHeader(value="User-Agent") String userAgent) {
       String version = userAgent.contains("curl") ? color(appVersion) : appVersion;
-      return String.format(TEMPLATE, new Date(), podName, version);
+      return String.format(TEMPLATE, podName, version);
   }
 
   private String color(String appVersion) {
