@@ -1,7 +1,5 @@
 package com.openshift.demo.tinyapp;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
