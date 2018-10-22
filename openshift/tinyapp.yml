@@ -21,7 +21,7 @@ spec:
         deploymentconfig: tinyapp
     spec:
       containers:
-      - image: quay.io/siamaksade/tinyapp:latest
+      - image: quay.io/siamaksade/tinyapp:v2
         imagePullPolicy: Always
         name: tinyapp
         env:
