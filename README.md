@@ -2,3 +2,9 @@ TinyApp Sample App [![Build Status](https://travis-ci.org/siamaksade/tinyapp.svg
 ===
 
 TinyApp is a sample Spring Boot application for demos on OpenShift
+
+To Deploy on OpenShift:
+
+```
+oc create -f openshift/tinyapp.yml
+```
