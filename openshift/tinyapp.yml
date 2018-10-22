@@ -16,9 +16,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        openshift.io/generated-by: OpenShiftNewApp
-      creationTimestamp: null
       labels:
         app: tinyapp
         deploymentconfig: tinyapp
