@@ -1,25 +1,32 @@
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
-  name: tinyapp
   labels:
     app: tinyapp
+  name: tinyapp
 spec:
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
-    matchLabels:
-      app: tinyapp
+    app: tinyapp
+    deploymentconfig: tinyapp
+  strategy:
+    activeDeadlineSeconds: 21600
+    type: Recreate
   template:
     metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
       labels:
         app: tinyapp
+        deploymentconfig: tinyapp
     spec:
       containers:
-      - name: tinyapp
-        image: quay.io/siamaksade/tinyapp:latest
-        ports:
-        - containerPort: 8080
+      - image: quay.io/siamaksade/tinyapp:latest
+        imagePullPolicy: Always
+        name: tinyapp
         env:
           - name: POD_NAME
             valueFrom:
@@ -45,6 +52,18 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 3
           failureThreshold: 10
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  triggers: []
 ---
 apiVersion: v1
 kind: Service
